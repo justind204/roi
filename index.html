@@ -511,4 +511,734 @@ body::before {
 .intro-card {
   background:
     linear-gradient(135deg, rgba(123, 175, 212, 0.05), rgba(129, 140, 248, 0.06));
-  border:
+  border: 1px solid var(--border);
+  border-radius: 12px; padding: 18px;
+  margin-bottom: 14px; text-align: center;
+}
+.intro-card p { color: var(--muted); font-size: 0.88rem; line-height: 1.6; }
+.intro-card .tarheel-text { color: var(--tarheel); text-shadow: 0 0 8px var(--tarheel-glow); font-weight: bold; }
+.intro-card .gold-text    { color: var(--gold);    text-shadow: 0 0 8px var(--gold-glow);    font-weight: bold; }
+
+.scenarios-container { display: grid; gap: 14px; }
+
+.scenario-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 16px;
+  position: relative; transition: border-color 0.4s, box-shadow 0.4s;
+}
+.scenario-card.best {
+  border-color: var(--gold);
+  box-shadow: 0 0 24px var(--gold-glow), inset 0 0 36px rgba(251, 191, 36, 0.05);
+}
+.best-badge {
+  position: absolute; top: -11px; left: 50%;
+  transform: translateX(-50%);
+  background: var(--gold); color: #1a1f4a;
+  font-family: 'Audiowide', monospace;
+  font-size: 0.72rem; letter-spacing: 0.16em;
+  padding: 5px 14px; border-radius: 12px;
+  white-space: nowrap; font-weight: bold;
+  box-shadow: 0 0 16px var(--gold-glow);
+  display: none;
+}
+.scenario-card.best .best-badge { display: block; }
+
+.scenario-header {
+  display: flex; gap: 8px; margin-bottom: 12px; align-items: stretch;
+}
+.scenario-name {
+  flex: 1; min-height: 42px;
+  font-family: 'Audiowide', monospace; font-size: 0.92rem;
+}
+.scenario-name:focus { border-color: var(--indigo); box-shadow: 0 0 14px var(--indigo-glow); }
+.scenario-remove {
+  background: transparent; border: 1px solid var(--border);
+  color: var(--loss); font-size: 1.2rem; line-height: 1;
+  padding: 0 14px; border-radius: 6px;
+  cursor: pointer; min-height: 42px;
+  transition: all 0.2s;
+}
+.scenario-remove:hover, .scenario-remove:active {
+  border-color: var(--loss); background: rgba(248, 113, 113, 0.12);
+  box-shadow: 0 0 12px var(--loss-glow);
+}
+
+.scenario-inputs {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 10px; margin-bottom: 12px;
+}
+@media(max-width: 460px) { .scenario-inputs { grid-template-columns: 1fr; } }
+.scenario-field label {
+  font-family: 'Audiowide', monospace;
+  font-size: 0.62rem; letter-spacing: 0.14em;
+  color: var(--muted); text-transform: uppercase;
+  margin-bottom: 5px; display: block;
+}
+
+.scenario-result {
+  display: flex; justify-content: space-around;
+  padding: 12px; background: var(--bg);
+  border-radius: 8px; border: 1px solid var(--border);
+  flex-wrap: wrap; gap: 10px;
+}
+.scenario-result-item { text-align: center; min-width: 90px; }
+.scenario-result-item .lbl {
+  font-family: 'Audiowide', monospace;
+  font-size: 0.6rem; letter-spacing: 0.14em;
+  color: var(--muted); text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.scenario-result-item .val {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 1.05rem; font-weight: bold;
+  transition: color 0.3s, text-shadow 0.3s;
+  min-height: 1.2em;
+}
+.scenario-result-item .val.profit { color: var(--profit); text-shadow: 0 0 8px var(--profit-glow); }
+.scenario-result-item .val.loss   { color: var(--loss);   text-shadow: 0 0 8px var(--loss-glow); }
+.scenario-result-item .val.muted  { color: var(--muted); }
+
+.compare-actions {
+  display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap;
+}
+.compare-actions .add-btn { flex: 1 1 200px; margin-top: 0; }
+.compare-actions .btn { flex: 1 1 160px; }
+
+/* ════════════════════ TOAST ════════════════════ */
+#toast {
+  position: fixed; bottom: 24px; left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--surface);
+  border: 1px solid var(--tarheel); color: var(--tarheel);
+  padding: 12px 22px; border-radius: 8px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.88rem; opacity: 0;
+  transition: all 0.3s; pointer-events: none;
+  z-index: 200; max-width: 90vw; text-align: center;
+  box-shadow: 0 0 22px var(--tarheel-glow);
+}
+#toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ════════════════════ FOOTER ════════════════════ */
+.footer-note {
+  text-align: center; margin-top: 24px;
+  font-size: 0.72rem; color: var(--muted); opacity: 0.6;
+  letter-spacing: 0.1em;
+}
+.footer-note .accent { color: var(--tarheel); }
+
+@supports(padding-bottom: env(safe-area-inset-bottom)) {
+  body { padding-bottom: calc(60px + env(safe-area-inset-bottom)); }
+}
+</style>
+</head>
+<body>
+<div class="starfield" aria-hidden="true"></div>
+<div class="wrapper">
+
+  <header class="site-header">
+    <h1 class="site-title">ROI CALCULATOR</h1>
+    <p class="site-sub">▸ Financial Impact Toolkit ◂</p>
+  </header>
+
+  <nav class="tab-nav" aria-label="Main Tool Navigation">
+    <button class="tab-btn active" data-tab="roi">◆ CALCULATE</button>
+    <div class="tab-divider"></div>
+    <button class="tab-btn" data-tab="compare">◇ COMPARE</button>
+  </nav>
+
+  <main>
+
+    <!-- ════════════════════ ROI TAB ════════════════════ -->
+    <div class="tab-panel active" id="panel-roi">
+
+      <div class="formula-card">
+        <div class="formula-label">▸ Return on Investment Formula ◂</div>
+        <div class="formula">
+          <span class="lhs">ROI</span>
+          <span class="eq">=</span>
+          <span class="fraction">
+            <span class="numerator">Financial Value − Project Cost</span>
+            <span class="denominator">Project Cost</span>
+          </span>
+          <span class="mul">×</span>
+          <span class="num100">100</span>
+        </div>
+      </div>
+
+      <div class="panel-section">
+        <div class="cost-items-header">
+          <span class="ctrl-label" style="margin: 0">Project Costs</span>
+          <span class="cost-items-hint">label · amount</span>
+        </div>
+        <div id="costItems"></div>
+        <button class="add-btn" id="addCostBtn">+ Add Cost Line</button>
+
+        <div class="value-section">
+          <label class="ctrl-label" for="financialValue">Financial Value (Return / Revenue)</label>
+          <div class="num-prefix">
+            <span class="currency">$</span>
+            <input class="num-input value-input" id="financialValue" type="text" inputmode="decimal" placeholder="0" aria-label="Financial Value">
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn-tarheel" id="resetBtn">RESET</button>
+          <button class="btn btn-violet" id="randomBtn"><span class="dice">⚄</span>RANDOMIZE</button>
+          <button class="btn btn-indigo" id="calcBtn">CALCULATE</button>
+        </div>
+      </div>
+
+      <div class="result-card" id="resultCard" data-status="idle">
+        <div class="result-label">Return on Investment</div>
+        <div class="result-roi idle" id="resultRoi">—</div>
+        <div class="status-badge idle" id="statusBadge">AWAITING INPUT</div>
+        <div class="roi-gauge">
+          <div class="roi-gauge-center"></div>
+          <div class="roi-gauge-needle idle" id="gaugeNeedle" style="left: 50%;"></div>
+        </div>
+        <div class="gauge-labels">
+          <span>−100%</span>
+          <span>0%</span>
+          <span>+100%</span>
+        </div>
+      </div>
+
+      <div class="breakdown">
+        <div class="breakdown-title">▸ Calculation Breakdown ◂</div>
+        <div class="breakdown-step">
+          <div class="step-label">Total Project Cost</div>
+          <div class="step-math">
+            <span class="step-expr" id="costExpr">—</span>
+            <span class="step-result idle" id="costResult">$0</span>
+          </div>
+        </div>
+        <div class="breakdown-step">
+          <div class="step-label">Financial Value</div>
+          <div class="step-math">
+            <span class="step-expr">Revenue / Return</span>
+            <span class="step-result idle" id="valueResult">$0</span>
+          </div>
+        </div>
+        <div class="breakdown-step">
+          <div class="step-label">Net Gain / Loss</div>
+          <div class="step-math">
+            <span class="step-expr" id="netExpr">—</span>
+            <span class="step-result idle" id="netResult">$0</span>
+          </div>
+        </div>
+        <div class="breakdown-step">
+          <div class="step-label">Return on Investment</div>
+          <div class="step-math">
+            <span class="step-expr" id="roiExpr">—</span>
+            <span class="step-result idle" id="roiResult">—</span>
+          </div>
+        </div>
+
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-label">Total Cost</div>
+            <div class="metric-value idle" id="metricCost">$0</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Net Gain / Loss</div>
+            <div class="metric-value idle" id="metricNet">$0</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Cost Recovery</div>
+            <div class="metric-value idle" id="metricRecovery">—</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ════════════════════ COMPARE TAB ════════════════════ -->
+    <div class="tab-panel" id="panel-compare">
+
+      <div class="intro-card">
+        <p>
+          Enter <span class="tarheel-text">cost</span> and <span class="tarheel-text">expected return</span>
+          for each scenario.<br>
+          The highest ROI gets crowned with a <span class="gold-text">★ BEST DEAL ★</span> badge.
+        </p>
+      </div>
+
+      <div class="scenarios-container" id="scenariosContainer"></div>
+
+      <div class="compare-actions">
+        <button class="add-btn" id="addScenarioBtn">+ Add Scenario</button>
+        <button class="btn btn-violet" id="randomScenariosBtn"><span class="dice">⚄</span>RANDOMIZE ALL</button>
+      </div>
+
+    </div>
+
+  </main>
+
+  <div class="footer-note">
+    ▸ <span class="accent">★</span> MADE FOR FINANCIAL CLARITY <span class="accent">★</span> ◂
+  </div>
+
+</div>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ════════════════════ UTILS ════════════════════ */
+const $  = sel => document.querySelector(sel);
+const $$ = sel => document.querySelectorAll(sel);
+
+function fmt(n) {
+  if (!isFinite(n)) return '—';
+  const sign = n < 0 ? '−' : '';
+  return sign + '$' + Math.abs(n).toLocaleString('en-US', { maximumFractionDigits: 2 });
+}
+function fmtPct(n, signed = true) {
+  if (!isFinite(n)) return '—';
+  const sign = n < 0 ? '−' : (signed ? '+' : '');
+  return sign + Math.abs(n).toFixed(2) + '%';
+}
+function parseNum(str) {
+  if (str === null || str === undefined) return 0;
+  const cleaned = String(str).replace(/[,$\s]/g, '').replace(/−/g, '-');
+  const n = parseFloat(cleaned);
+  return isNaN(n) ? 0 : n;
+}
+function escAttr(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+const toastEl = $('#toast');
+let toastTimer;
+function showToast(msg) {
+  clearTimeout(toastTimer);
+  toastEl.textContent = msg;
+  toastEl.classList.add('show');
+  toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2400);
+}
+
+/* ════════════════════ AUTO-COMMA FORMATTER ════════════════════
+   Inserts thousands separators as the user types and preserves caret
+   position. Accepts one optional decimal point.
+   ──────────────────────────────────────────────────────────────── */
+function formatWithCommas(raw) {
+  // Allow only digits and a single decimal point
+  let cleaned = String(raw).replace(/[^0-9.]/g, '');
+  const dotIdx = cleaned.indexOf('.');
+  if (dotIdx !== -1) {
+    cleaned = cleaned.slice(0, dotIdx + 1) + cleaned.slice(dotIdx + 1).replace(/\./g, '');
+  }
+  if (cleaned === '' || cleaned === '.') return cleaned;
+  const [intPart, decPart] = cleaned.split('.');
+  const intFormatted = intPart === '' ? '' : Number(intPart).toLocaleString('en-US');
+  return decPart !== undefined ? intFormatted + '.' + decPart : intFormatted;
+}
+
+function attachAutoFormat(input) {
+  if (input.dataset.autoFormatted) return;
+  input.dataset.autoFormatted = '1';
+
+  input.addEventListener('input', (e) => {
+    const target = e.target;
+    const oldValue = target.value;
+    const oldCaret = target.selectionStart || 0;
+
+    // Count digits/dots before the caret in the OLD string
+    let charsBefore = 0;
+    for (let i = 0; i < oldCaret; i++) {
+      if (/[0-9.]/.test(oldValue[i])) charsBefore++;
+    }
+
+    const formatted = formatWithCommas(oldValue);
+    if (formatted === oldValue) return;
+    target.value = formatted;
+
+    // Place caret after the same number of digits/dots
+    let newCaret = formatted.length;
+    if (charsBefore === 0) {
+      newCaret = 0;
+    } else {
+      let count = 0;
+      for (let i = 0; i < formatted.length; i++) {
+        if (/[0-9.]/.test(formatted[i])) {
+          count++;
+          if (count === charsBefore) { newCaret = i + 1; break; }
+        }
+      }
+    }
+    try { target.setSelectionRange(newCaret, newCaret); } catch (_) {}
+  });
+}
+
+/* ════════════════════ TABS ════════════════════ */
+$$('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    $$('.tab-btn').forEach(b => b.classList.remove('active'));
+    $$('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    $('#panel-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+/* ════════════════════ RANDOM HELPERS ════════════════════ */
+const COST_CATEGORIES = [
+  'Supplies and labor', 'Event fees', 'Marketing campaign', 'Ad spend',
+  'Software licenses', 'Venue rental', 'Equipment rental', 'Travel expenses',
+  'Catering services', 'Consultant fees', 'Training materials', 'Insurance premiums',
+  'Legal fees', 'Web development', 'Print materials', 'Sponsorship fees',
+  'Permits and licenses', 'Utilities', 'Vendor costs', 'Promotional items',
+  'Logistics & shipping', 'Office rental', 'Tech infrastructure', 'Branded merchandise',
+  'Photography services', 'Social media ads', 'Influencer partnerships', 'Booth rental',
+  'Research & analysis', 'Decorations', 'Security services', 'Hardware purchase',
+  'Subscription fees', 'Audio/visual setup', 'Staff training', 'Quality assurance'
+];
+
+const SCENARIO_NAMES = [
+  'Event Sponsorship', 'Marketing Campaign', 'Product Launch', 'Trade Show Booth',
+  'Brand Activation', 'Pop-up Store', 'Conference Hosting', 'Influencer Push',
+  'Community Outreach', 'Charity Drive', 'Webinar Series', 'Loyalty Program',
+  'Holiday Promotion', 'Referral Program', 'Content Campaign', 'Roadshow Tour'
+];
+
+function randInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+function roundTo(n, step) { return Math.round(n / step) * step; }
+
+/* ════════════════════ ROI CALCULATOR ════════════════════ */
+const costItemsEl = $('#costItems');
+let costItemId = 0;
+
+function createCostItem(label = '', amount = '') {
+  const id = ++costItemId;
+  const row = document.createElement('div');
+  row.className = 'cost-item';
+  row.dataset.id = id;
+  row.innerHTML = `
+    <input class="label-input" type="text" placeholder="e.g. supplies, labor, fees…" value="${escAttr(label)}" aria-label="Cost label">
+    <div class="num-prefix">
+      <span class="currency">$</span>
+      <input class="num-input cost-amount" type="text" inputmode="decimal" placeholder="0" value="${escAttr(amount)}" aria-label="Cost amount">
+    </div>
+    <button class="remove-btn" aria-label="Remove cost line" title="Remove">×</button>
+  `;
+  row.querySelector('.remove-btn').addEventListener('click', () => {
+    if (costItemsEl.children.length <= 1) {
+      showToast('▲ At least one cost line is required');
+      return;
+    }
+    row.remove();
+    calculate();
+  });
+  row.querySelectorAll('input').forEach(inp => inp.addEventListener('input', calculate));
+  attachAutoFormat(row.querySelector('.cost-amount'));
+  return row;
+}
+
+function loadCostItems(items) {
+  costItemsEl.innerHTML = '';
+  items.forEach(it => costItemsEl.appendChild(createCostItem(it.label, it.amount)));
+}
+
+function gatherCosts() {
+  return [...costItemsEl.children].map(row => ({
+    label:  row.querySelector('.label-input').value.trim(),
+    amount: parseNum(row.querySelector('.cost-amount').value)
+  }));
+}
+
+function calculate() {
+  const costs     = gatherCosts();
+  const totalCost = costs.reduce((s, c) => s + c.amount, 0);
+  const value     = parseNum($('#financialValue').value);
+  const netGain   = value - totalCost;
+  const roi       = totalCost > 0 ? (netGain / totalCost) * 100 : NaN;
+  const recovery  = totalCost > 0 ? (value / totalCost) * 100 : NaN;
+
+  // Determine status
+  let status = 'idle';
+  let statusText = 'AWAITING INPUT';
+  if (totalCost > 0 || value > 0) {
+    if (!isFinite(roi)) {
+      status = 'idle';
+      statusText = 'ENTER A COST';
+    } else if (roi >  0.005) { status = 'profit';  statusText = 'PROFITABLE'; }
+      else if (roi < -0.005) { status = 'loss';    statusText = 'NET LOSS'; }
+      else                   { status = 'neutral'; statusText = 'BREAK-EVEN'; }
+  }
+
+  // Main result card
+  const resultCard = $('#resultCard');
+  resultCard.dataset.status = status;
+
+  const resultRoi = $('#resultRoi');
+  resultRoi.textContent = isFinite(roi) ? fmtPct(roi) : '—';
+  resultRoi.className = 'result-roi ' + status;
+
+  const badge = $('#statusBadge');
+  badge.textContent = statusText;
+  badge.className = 'status-badge ' + status;
+
+  // Gauge needle
+  const needle = $('#gaugeNeedle');
+  needle.className = 'roi-gauge-needle ' + status;
+  const safeRoi = isFinite(roi) ? roi : 0;
+  const clamped = Math.max(-100, Math.min(100, safeRoi));
+  needle.style.left = ((clamped + 100) / 200 * 100) + '%';
+
+  // Breakdown — cost expression
+  const nonzeroCosts = costs.filter(c => c.amount !== 0);
+  $('#costExpr').textContent = nonzeroCosts.length
+    ? nonzeroCosts.map(c => fmt(c.amount)).join(' + ')
+    : '—';
+
+  const costResultEl = $('#costResult');
+  costResultEl.textContent = fmt(totalCost);
+  costResultEl.className = 'step-result ' + (totalCost > 0 ? 'cost' : 'idle');
+
+  const valueResultEl = $('#valueResult');
+  valueResultEl.textContent = fmt(value);
+  valueResultEl.className = 'step-result ' + (value > 0 ? 'value' : 'idle');
+
+  $('#netExpr').textContent = (totalCost || value)
+    ? `${fmt(value)} − ${fmt(totalCost)}`
+    : '—';
+
+  const netEl = $('#netResult');
+  if (totalCost === 0 && value === 0) {
+    netEl.textContent = '$0';
+    netEl.className = 'step-result idle';
+  } else {
+    netEl.textContent = fmt(netGain);
+    netEl.className = 'step-result ' + (netGain > 0 ? 'profit' : netGain < 0 ? 'loss' : 'neutral');
+  }
+
+  $('#roiExpr').textContent = isFinite(roi)
+    ? `(${fmt(netGain)} ÷ ${fmt(totalCost)}) × 100`
+    : '—';
+  const roiEl = $('#roiResult');
+  if (isFinite(roi)) {
+    roiEl.textContent = fmtPct(roi);
+    roiEl.className = 'step-result ' + status;
+  } else {
+    roiEl.textContent = '—';
+    roiEl.className = 'step-result idle';
+  }
+
+  // Metric chips
+  const metricCost = $('#metricCost');
+  metricCost.textContent = fmt(totalCost);
+  metricCost.className = 'metric-value ' + (totalCost > 0 ? 'indigo' : 'idle');
+
+  const metricNet = $('#metricNet');
+  if (totalCost === 0 && value === 0) {
+    metricNet.textContent = '$0';
+    metricNet.className = 'metric-value idle';
+  } else {
+    metricNet.textContent = fmt(netGain);
+    metricNet.className = 'metric-value ' + (netGain > 0 ? 'profit' : netGain < 0 ? 'loss' : 'gold');
+  }
+
+  const metricRec = $('#metricRecovery');
+  if (isFinite(recovery)) {
+    metricRec.textContent = recovery.toFixed(1) + '%';
+    metricRec.className = 'metric-value gold';
+  } else {
+    metricRec.textContent = '—';
+    metricRec.className = 'metric-value idle';
+  }
+}
+
+// Reset to empty
+function resetROI() {
+  loadCostItems([{ label: '', amount: '' }, { label: '', amount: '' }]);
+  $('#financialValue').value = '';
+  calculate();
+}
+
+resetROI();
+attachAutoFormat($('#financialValue'));
+
+$('#addCostBtn').addEventListener('click', () => {
+  costItemsEl.appendChild(createCostItem('', ''));
+  costItemsEl.lastElementChild.querySelector('.label-input').focus();
+});
+
+$('#financialValue').addEventListener('input', calculate);
+
+$('#resetBtn').addEventListener('click', () => {
+  resetROI();
+  showToast('◇ Cleared');
+});
+
+$('#calcBtn').addEventListener('click', () => {
+  calculate();
+  showToast('◆ Recalculated');
+});
+
+/* ════════════════════ RANDOMIZER (single project) ════════════════════
+   Builds a varied scenario:
+   • 2–4 random cost categories (no duplicates)
+   • Amounts $500 – $25,000, rounded to nearest $250
+   • Multiplier 0.4 – 2.2 → ROI roughly −60% to +120%
+   ──────────────────────────────────────────────────────────────────── */
+function generateRandomScenario() {
+  const numCosts = randInt(2, 4);
+  const categories = shuffle(COST_CATEGORIES).slice(0, numCosts);
+  const items = categories.map(cat => ({
+    label: cat,
+    amount: roundTo(randInt(500, 25000), 250).toLocaleString('en-US')
+  }));
+  const totalCost = items.reduce((s, it) => s + parseNum(it.amount), 0);
+  const multiplier = 0.4 + Math.random() * 1.8;
+  const value = roundTo(totalCost * multiplier, 250);
+  return { items, value };
+}
+
+$('#randomBtn').addEventListener('click', () => {
+  const { items, value } = generateRandomScenario();
+  loadCostItems(items);
+  $('#financialValue').value = value.toLocaleString('en-US');
+  calculate();
+  showToast('⚄ Random scenario generated');
+});
+
+/* ════════════════════ COMPARE SCENARIOS ════════════════════ */
+const scenariosContainer = $('#scenariosContainer');
+let scenarioId = 0;
+
+function createScenario(data = {}) {
+  const id = ++scenarioId;
+  const card = document.createElement('div');
+  card.className = 'scenario-card';
+  card.dataset.id = id;
+  card.innerHTML = `
+    <div class="best-badge">★ BEST DEAL ★</div>
+    <div class="scenario-header">
+      <input class="scenario-name" type="text" placeholder="Scenario name" value="${escAttr(data.name || 'Project ' + id)}" aria-label="Scenario name">
+      <button class="scenario-remove" aria-label="Remove scenario" title="Remove">×</button>
+    </div>
+    <div class="scenario-inputs">
+      <div class="scenario-field">
+        <label>Total Cost</label>
+        <div class="num-prefix">
+          <span class="currency">$</span>
+          <input class="num-input scenario-cost" type="text" inputmode="decimal" placeholder="0" value="${escAttr(data.cost ?? '')}" aria-label="Total cost">
+        </div>
+      </div>
+      <div class="scenario-field">
+        <label>Financial Value</label>
+        <div class="num-prefix">
+          <span class="currency">$</span>
+          <input class="num-input scenario-value" type="text" inputmode="decimal" placeholder="0" value="${escAttr(data.value ?? '')}" aria-label="Financial value">
+        </div>
+      </div>
+    </div>
+    <div class="scenario-result">
+      <div class="scenario-result-item">
+        <div class="lbl">ROI</div>
+        <div class="val scenario-roi muted">—</div>
+      </div>
+      <div class="scenario-result-item">
+        <div class="lbl">Net Gain / Loss</div>
+        <div class="val scenario-net muted">—</div>
+      </div>
+    </div>
+  `;
+  card.querySelector('.scenario-remove').addEventListener('click', () => {
+    if (scenariosContainer.children.length <= 2) {
+      showToast('▲ Need at least 2 scenarios to compare');
+      return;
+    }
+    card.remove();
+    updateCompare();
+  });
+  card.querySelectorAll('input').forEach(inp => inp.addEventListener('input', updateCompare));
+  attachAutoFormat(card.querySelector('.scenario-cost'));
+  attachAutoFormat(card.querySelector('.scenario-value'));
+  return card;
+}
+
+function updateCompare() {
+  const cards = [...scenariosContainer.children];
+  let bestRoi = -Infinity;
+  let bestCard = null;
+  let validCount = 0;
+
+  cards.forEach(card => {
+    const cost  = parseNum(card.querySelector('.scenario-cost').value);
+    const value = parseNum(card.querySelector('.scenario-value').value);
+    const net   = value - cost;
+    const roi   = cost > 0 ? (net / cost) * 100 : null;
+
+    const roiEl = card.querySelector('.scenario-roi');
+    const netEl = card.querySelector('.scenario-net');
+
+    if (roi !== null) {
+      validCount++;
+      roiEl.textContent = fmtPct(roi);
+      roiEl.className   = 'val scenario-roi ' + (roi >= 0 ? 'profit' : 'loss');
+      netEl.textContent = fmt(net);
+      netEl.className   = 'val scenario-net ' + (net >= 0 ? 'profit' : 'loss');
+      if (roi > bestRoi) { bestRoi = roi; bestCard = card; }
+    } else {
+      roiEl.textContent = '—'; roiEl.className = 'val scenario-roi muted';
+      netEl.textContent = '—'; netEl.className = 'val scenario-net muted';
+    }
+  });
+
+  cards.forEach(card => {
+    if (card === bestCard && validCount >= 2 && bestRoi > -Infinity) {
+      card.classList.add('best');
+    } else {
+      card.classList.remove('best');
+    }
+  });
+}
+
+function resetScenarios() {
+  scenariosContainer.innerHTML = '';
+  scenarioId = 0;
+  scenariosContainer.appendChild(createScenario({ name: 'Project 1' }));
+  scenariosContainer.appendChild(createScenario({ name: 'Project 2' }));
+  updateCompare();
+}
+
+resetScenarios();
+
+$('#addScenarioBtn').addEventListener('click', () => {
+  if (scenariosContainer.children.length >= 6) {
+    showToast('▲ Maximum 6 scenarios');
+    return;
+  }
+  scenariosContainer.appendChild(createScenario({}));
+  updateCompare();
+});
+
+$('#randomScenariosBtn').addEventListener('click', () => {
+  scenariosContainer.innerHTML = '';
+  scenarioId = 0;
+  const count = randInt(3, 4);
+  const names = shuffle(SCENARIO_NAMES).slice(0, count);
+  names.forEach(name => {
+    const cost = roundTo(randInt(2000, 40000), 250);
+    const multiplier = 0.4 + Math.random() * 1.8;
+    const value = roundTo(cost * multiplier, 250);
+    scenariosContainer.appendChild(createScenario({
+      name,
+      cost: cost.toLocaleString('en-US'),
+      value: value.toLocaleString('en-US')
+    }));
+  });
+  updateCompare();
+  showToast('⚄ Random scenarios generated');
+});
+</script>
+</body>
+</html>
