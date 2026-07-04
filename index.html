@@ -10,37 +10,37 @@
 <style>
 /* ════════════════════════════════════════════════════════════════════
    ROI CALCULATOR · Financial Impact Toolkit
-   Galaxy Indigo + Tarheel Blue · Single Project + Scenario Compare
+   Galaxy Indigo + Tarheel Blue · Compact single-screen layout
    ════════════════════════════════════════════════════════════════════ */
 :root {
   --bg:           #060a1f;
   --bg2:          #0e1339;
   --surface:      #161d4a;
   --surface2:     #1f2a64;
-  --border:       #324287;
+  --border:       #3a4c99;
   --border-bright:#5066c4;
-  --text:         #e8edff;
-  --muted:        #8d99d6;
+  --text:         #eef2ff;
+  --muted:        #a7b2e6;
 
-  /* Carolina + Galaxy palette */
-  --tarheel:      #7BAFD4;
-  --tarheel-glow: rgba(123, 175, 212, 0.5);
+  --tarheel:      #8ec5e8;
+  --tarheel-glow: rgba(142, 197, 232, 0.55);
   --tarheel-deep: #4B9CD3;
-  --indigo:       #818cf8;
-  --indigo-glow:  rgba(129, 140, 248, 0.5);
-  --violet:       #a78bfa;
-  --violet-glow:  rgba(167, 139, 250, 0.45);
-  --gold:         #fbbf24;
-  --gold-glow:    rgba(251, 191, 36, 0.5);
+  --indigo:       #9aa4ff;
+  --indigo-glow:  rgba(154, 164, 255, 0.55);
+  --violet:       #b79dff;
+  --violet-glow:  rgba(183, 157, 255, 0.5);
+  --gold:         #ffcf40;
+  --gold-glow:    rgba(255, 207, 64, 0.55);
 
-  /* Status */
-  --profit:       #34d399;
-  --profit-glow:  rgba(52, 211, 153, 0.5);
-  --loss:         #f87171;
-  --loss-glow:    rgba(248, 113, 113, 0.5);
+  --profit:       #4ade80;
+  --profit-glow:  rgba(74, 222, 128, 0.55);
+  --loss:         #ff6b6b;
+  --loss-glow:    rgba(255, 107, 107, 0.55);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+html, body { height: 100%; }
 
 body {
   font-family: 'Share Tech Mono', monospace;
@@ -48,114 +48,105 @@ body {
   color: var(--text);
   min-height: 100vh; min-height: 100dvh;
   display: flex; flex-direction: column; align-items: center;
-  padding: 20px 12px 60px;
+  padding: 12px 12px 20px;
   position: relative; overflow-x: hidden;
 }
 
-/* ── Cosmic ambient: nebula clouds ── */
+/* ── Cosmic ambient ── */
 body::before {
   content: ''; position: fixed; inset: 0; z-index: 0;
   background:
-    radial-gradient(ellipse 55% 35% at 18% 22%, rgba(123, 175, 212, 0.10), transparent 60%),
-    radial-gradient(ellipse 45% 28% at 82% 78%, rgba(129, 140, 248, 0.12), transparent 60%),
-    radial-gradient(ellipse 40% 25% at 65% 18%, rgba(167, 139, 250, 0.08), transparent 60%),
-    radial-gradient(ellipse 90% 60% at 50% 100%, rgba(75, 156, 211, 0.06), transparent 70%),
+    radial-gradient(ellipse 55% 35% at 18% 22%, rgba(142, 197, 232, 0.10), transparent 60%),
+    radial-gradient(ellipse 45% 28% at 82% 78%, rgba(154, 164, 255, 0.12), transparent 60%),
+    radial-gradient(ellipse 40% 25% at 65% 18%, rgba(183, 157, 255, 0.08), transparent 60%),
     linear-gradient(180deg, var(--bg) 0%, var(--bg2) 60%, #131846 100%);
   pointer-events: none;
 }
-
-/* ── Starfield ── */
 .starfield {
   position: fixed; inset: 0; z-index: 0; pointer-events: none;
   background-image:
-    radial-gradient(1.5px 1.5px at 12% 18%, #ffffff, transparent 50%),
+    radial-gradient(1.5px 1.5px at 12% 18%, #fff, transparent 50%),
     radial-gradient(1px 1px at 27% 42%, rgba(255,255,255,0.85), transparent 50%),
     radial-gradient(2px 2px at 8% 78%, var(--tarheel), transparent 50%),
     radial-gradient(1px 1px at 45% 11%, rgba(255,255,255,0.7), transparent 50%),
-    radial-gradient(1.5px 1.5px at 63% 33%, #ffffff, transparent 50%),
+    radial-gradient(1.5px 1.5px at 63% 33%, #fff, transparent 50%),
     radial-gradient(1px 1px at 78% 65%, rgba(255,255,255,0.6), transparent 50%),
     radial-gradient(2px 2px at 92% 25%, var(--indigo), transparent 50%),
     radial-gradient(1px 1px at 35% 88%, rgba(255,255,255,0.9), transparent 50%),
     radial-gradient(1.5px 1.5px at 88% 8%, rgba(255,255,255,0.75), transparent 50%),
     radial-gradient(1px 1px at 55% 72%, var(--tarheel), transparent 50%),
     radial-gradient(1px 1px at 18% 55%, rgba(255,255,255,0.5), transparent 50%),
-    radial-gradient(1.5px 1.5px at 72% 95%, #ffffff, transparent 50%),
+    radial-gradient(1.5px 1.5px at 72% 95%, #fff, transparent 50%),
     radial-gradient(1px 1px at 95% 50%, rgba(255,255,255,0.6), transparent 50%),
     radial-gradient(2px 2px at 5% 38%, var(--violet), transparent 50%),
     radial-gradient(1px 1px at 40% 62%, rgba(255,255,255,0.7), transparent 50%),
-    radial-gradient(1px 1px at 82% 48%, rgba(255,255,255,0.5), transparent 50%),
     radial-gradient(1.5px 1.5px at 50% 28%, rgba(255,255,255,0.8), transparent 50%),
     radial-gradient(1px 1px at 22% 92%, var(--tarheel), transparent 50%),
-    radial-gradient(1px 1px at 68% 5%, rgba(255,255,255,0.6), transparent 50%),
-    radial-gradient(1px 1px at 3% 65%, rgba(255,255,255,0.55), transparent 50%);
-  opacity: 0.85;
+    radial-gradient(1px 1px at 68% 5%, rgba(255,255,255,0.6), transparent 50%);
+  opacity: 0.8;
 }
 .starfield::after {
-  /* slow twinkle layer */
   content: ''; position: absolute; inset: 0;
   background-image:
-    radial-gradient(2px 2px at 30% 25%, #ffffff, transparent 50%),
+    radial-gradient(2px 2px at 30% 25%, #fff, transparent 50%),
     radial-gradient(2px 2px at 75% 70%, var(--tarheel), transparent 50%),
-    radial-gradient(1.5px 1.5px at 15% 80%, #ffffff, transparent 50%),
+    radial-gradient(1.5px 1.5px at 15% 80%, #fff, transparent 50%),
     radial-gradient(2px 2px at 60% 15%, var(--indigo), transparent 50%);
   animation: twinkle 4s ease-in-out infinite alternate;
 }
-@keyframes twinkle {
-  from { opacity: 0.4; }
-  to   { opacity: 1; }
+@keyframes twinkle { from { opacity: 0.4; } to { opacity: 1; } }
+
+.wrapper { position: relative; z-index: 1; width: 100%; max-width: 1180px; }
+
+/* ════════════════════ HEADER (compact) ════════════════════ */
+.site-header {
+  display: flex; align-items: baseline; justify-content: center;
+  gap: 14px; flex-wrap: wrap;
+  margin-bottom: 12px; padding-top: 2px;
 }
-
-.wrapper { position: relative; z-index: 1; width: 100%; max-width: 1080px; }
-
-/* ════════════════════ HEADER ════════════════════ */
-.site-header { text-align: center; margin-bottom: 26px; padding-top: 8px; position: relative; }
-
 .site-title {
   font-family: 'Orbitron', sans-serif;
   font-weight: 900;
-  font-size: clamp(2rem, 7.5vw, 3.6rem);
-  letter-spacing: 0.06em;
-  background: linear-gradient(135deg, var(--tarheel) 0%, var(--tarheel-deep) 30%, var(--indigo) 65%, var(--violet) 100%);
+  font-size: clamp(1.6rem, 4vw, 2.5rem);
+  letter-spacing: 0.05em;
+  background: linear-gradient(135deg, var(--tarheel) 0%, var(--tarheel-deep) 35%, var(--indigo) 70%, var(--violet) 100%);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-  line-height: 1.05; margin-bottom: 10px; position: relative;
-  filter: drop-shadow(0 0 16px rgba(123, 175, 212, 0.4));
+  line-height: 1;
+  filter: drop-shadow(0 0 14px rgba(142, 197, 232, 0.45));
 }
-
 .site-sub {
   font-family: 'Audiowide', monospace;
   color: var(--tarheel);
-  font-size: clamp(0.7rem, 2vw, 0.88rem);
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
+  font-size: clamp(0.62rem, 1.6vw, 0.8rem);
+  letter-spacing: 0.2em; text-transform: uppercase;
   text-shadow: 0 0 10px var(--tarheel-glow);
 }
 
 /* ════════════════════ TABS ════════════════════ */
 .tab-nav {
-  display: flex; margin-bottom: 16px;
+  display: flex; margin-bottom: 12px;
   border: 1px solid var(--border); border-radius: 10px;
   overflow: hidden; background: var(--surface);
-  box-shadow: 0 0 28px rgba(50, 66, 135, 0.25);
+  box-shadow: 0 0 28px rgba(58, 76, 153, 0.25);
 }
 .tab-btn {
   flex: 1;
   font-family: 'Audiowide', monospace;
-  font-size: clamp(0.72rem, 2.4vw, 0.86rem);
+  font-size: clamp(0.72rem, 2vw, 0.9rem);
   letter-spacing: 0.08em; text-transform: uppercase;
-  padding: 15px 8px; min-height: 54px;
+  padding: 12px 8px; min-height: 48px;
   border: none; background: transparent;
   color: var(--muted); cursor: pointer;
-  transition: all 0.25s;
-  position: relative; text-align: center;
+  transition: all 0.25s; position: relative;
 }
 .tab-btn::after {
   content: ''; position: absolute; bottom: 0; left: 0; right: 0;
   height: 3px; background: transparent;
   transition: background 0.25s, box-shadow 0.25s;
 }
-.tab-btn.active[data-tab="roi"]      { color: var(--tarheel); background: rgba(123, 175, 212, 0.08); }
+.tab-btn.active[data-tab="roi"]      { color: var(--tarheel); background: rgba(142, 197, 232, 0.08); }
 .tab-btn.active[data-tab="roi"]::after { background: var(--tarheel); box-shadow: 0 0 14px var(--tarheel-glow); }
-.tab-btn.active[data-tab="compare"]  { color: var(--indigo); background: rgba(129, 140, 248, 0.08); }
+.tab-btn.active[data-tab="compare"]  { color: var(--indigo); background: rgba(154, 164, 255, 0.08); }
 .tab-btn.active[data-tab="compare"]::after { background: var(--indigo); box-shadow: 0 0 14px var(--indigo-glow); }
 .tab-divider { width: 1px; background: var(--border); align-self: stretch; }
 
@@ -163,472 +154,316 @@ body::before {
 .tab-panel.active { display: block; animation: fadeIn 0.3s ease; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
-/* ════════════════════ PANELS / CARDS ════════════════════ */
-.panel-section {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: 12px; padding: 18px;
-  margin-bottom: 14px;
-  box-shadow: 0 0 22px rgba(50, 66, 135, 0.12), inset 0 0 30px rgba(0, 0, 0, 0.25);
+/* ════════════════════ TWO-COLUMN LAYOUT ════════════════════ */
+.roi-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  align-items: start;
 }
+@media(max-width: 860px) {
+  .roi-grid { grid-template-columns: 1fr; }
+}
+
+/* Card base */
+.card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 14px;
+  box-shadow: 0 0 22px rgba(58, 76, 153, 0.12), inset 0 0 30px rgba(0, 0, 0, 0.22);
+  margin-bottom: 12px;
+}
+.card:last-child { margin-bottom: 0; }
+
+/* Section heading — BRIGHT and prominent */
+.card-heading {
+  font-family: 'Audiowide', monospace;
+  font-size: 0.92rem; letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  display: flex; align-items: center; gap: 8px;
+}
+.card-heading.tarheel { color: var(--tarheel); text-shadow: 0 0 12px var(--tarheel-glow); }
+.card-heading.indigo  { color: var(--indigo);  text-shadow: 0 0 12px var(--indigo-glow); }
+.card-heading .tick { color: var(--gold); }
 
 /* Formula card */
 .formula-card {
-  background:
-    linear-gradient(135deg, rgba(123, 175, 212, 0.08), rgba(129, 140, 248, 0.06));
-  border: 1px solid var(--border);
+  background: linear-gradient(135deg, rgba(142, 197, 232, 0.10), rgba(154, 164, 255, 0.08));
+  border: 1px solid var(--border-bright);
   border-radius: 12px;
-  padding: 22px 18px; margin-bottom: 14px;
-  text-align: center;
-  box-shadow: inset 0 0 28px rgba(0, 0, 0, 0.3);
-}
-.formula-label {
-  font-family: 'Audiowide', monospace;
-  font-size: 0.74rem; letter-spacing: 0.18em;
-  color: var(--tarheel); text-transform: uppercase;
-  margin-bottom: 14px;
-  text-shadow: 0 0 10px var(--tarheel-glow);
+  padding: 14px; margin-bottom: 12px; text-align: center;
+  box-shadow: inset 0 0 28px rgba(0, 0, 0, 0.28);
 }
 .formula {
-  display: inline-flex; align-items: center; gap: 12px;
-  font-size: clamp(0.92rem, 2.6vw, 1.18rem);
-  color: var(--text);
-  flex-wrap: wrap; justify-content: center;
-  font-family: 'Share Tech Mono', monospace;
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: clamp(0.9rem, 2.3vw, 1.15rem);
+  color: var(--text); flex-wrap: wrap; justify-content: center;
 }
-.formula .lhs { font-family: 'Audiowide', monospace; color: var(--indigo); text-shadow: 0 0 8px var(--indigo-glow); }
-.formula .fraction { display: inline-flex; flex-direction: column; text-align: center; vertical-align: middle; }
-.formula .numerator {
-  padding: 0 10px 6px;
-  border-bottom: 2px solid var(--tarheel);
-  color: var(--tarheel); text-shadow: 0 0 6px var(--tarheel-glow);
-}
-.formula .denominator { padding: 6px 10px 0; color: var(--indigo); text-shadow: 0 0 6px var(--indigo-glow); }
+.formula .lhs { font-family: 'Audiowide', monospace; color: var(--indigo); text-shadow: 0 0 8px var(--indigo-glow); font-size: 1.15em; }
+.formula .fraction { display: inline-flex; flex-direction: column; text-align: center; }
+.formula .numerator { padding: 0 10px 5px; border-bottom: 2px solid var(--tarheel); color: var(--tarheel); text-shadow: 0 0 6px var(--tarheel-glow); }
+.formula .denominator { padding: 5px 10px 0; color: var(--indigo); text-shadow: 0 0 6px var(--indigo-glow); }
 .formula .eq, .formula .mul { color: var(--muted); }
 .formula .num100 { color: var(--gold); text-shadow: 0 0 10px var(--gold-glow); font-weight: bold; }
 
 /* ════════════════════ INPUTS ════════════════════ */
-.ctrl-label {
+/* BRIGHTER field labels */
+.field-label {
   font-family: 'Audiowide', monospace;
-  font-size: 0.72rem; letter-spacing: 0.14em;
-  color: var(--muted); text-transform: uppercase;
-  margin-bottom: 8px; display: block;
+  font-size: 0.74rem; letter-spacing: 0.1em;
+  color: var(--tarheel); text-transform: uppercase;
+  margin-bottom: 7px; display: block;
+  text-shadow: 0 0 8px var(--tarheel-glow);
 }
 .cost-items-header {
   display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
-.cost-items-hint { font-size: 0.7rem; color: var(--muted); opacity: 0.7; }
+.cost-items-hint { font-size: 0.68rem; color: var(--muted); opacity: 0.75; }
 
 .cost-item {
-  display: grid;
-  grid-template-columns: 1fr 140px 40px;
-  gap: 8px; margin-bottom: 8px;
+  display: grid; grid-template-columns: 1fr 128px 38px;
+  gap: 7px; margin-bottom: 7px;
 }
-@media(max-width: 480px) {
-  .cost-item { grid-template-columns: 1fr 105px 40px; }
-}
+@media(max-width: 480px) { .cost-item { grid-template-columns: 1fr 100px 38px; } }
 
-.text-input, .num-input, .label-input, .scenario-name {
+.num-input, .label-input, .scenario-name {
   font-family: 'Share Tech Mono', monospace;
-  font-size: 1rem;
+  font-size: 1.02rem;
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 6px;
-  color: var(--text);
-  padding: 10px 12px; outline: none;
-  min-height: 44px;
-  transition: border-color 0.2s, box-shadow 0.2s;
-  width: 100%;
+  border-radius: 6px; color: var(--text);
+  padding: 9px 11px; outline: none;
+  min-height: 42px;
+  transition: border-color 0.2s, box-shadow 0.2s; width: 100%;
 }
-.label-input::placeholder, .num-input::placeholder, .scenario-name::placeholder {
-  color: var(--muted); opacity: 0.45;
-}
-.text-input:focus, .num-input:focus, .label-input:focus, .scenario-name:focus {
+.label-input::placeholder, .num-input::placeholder, .scenario-name::placeholder { color: var(--muted); opacity: 0.5; }
+.num-input:focus, .label-input:focus, .scenario-name:focus {
   border-color: var(--tarheel); box-shadow: 0 0 14px var(--tarheel-glow);
 }
-.num-input { text-align: right; font-weight: bold; color: var(--tarheel); }
+.num-input { text-align: right; font-weight: bold; font-size: 1.1rem; color: var(--tarheel); }
 .num-input.value-input { color: var(--profit); }
 
 .num-prefix { position: relative; }
 .num-prefix .currency {
-  position: absolute; left: 12px; top: 50%;
-  transform: translateY(-50%);
-  color: var(--muted); font-weight: bold;
-  pointer-events: none; z-index: 1; font-size: 1rem;
+  position: absolute; left: 11px; top: 50%; transform: translateY(-50%);
+  color: var(--muted); font-weight: bold; pointer-events: none; z-index: 1; font-size: 1.02rem;
 }
-.num-prefix .num-input { padding-left: 26px; }
+.num-prefix .num-input { padding-left: 24px; }
 
 .remove-btn {
   background: transparent; border: 1px solid var(--border);
-  color: var(--loss); font-size: 1.3rem; line-height: 1;
-  border-radius: 6px; cursor: pointer;
-  transition: all 0.2s; font-weight: bold;
-  min-height: 44px;
+  color: var(--loss); font-size: 1.25rem; line-height: 1;
+  border-radius: 6px; cursor: pointer; font-weight: bold;
+  min-height: 42px; transition: all 0.2s;
 }
 .remove-btn:hover, .remove-btn:active {
-  border-color: var(--loss); background: rgba(248, 113, 113, 0.12);
-  box-shadow: 0 0 12px var(--loss-glow);
+  border-color: var(--loss); background: rgba(255, 107, 107, 0.12); box-shadow: 0 0 12px var(--loss-glow);
 }
 
 .add-btn {
   font-family: 'Audiowide', monospace;
-  font-size: 0.78rem; letter-spacing: 0.1em;
-  background: transparent;
-  border: 1px dashed var(--border-bright);
-  color: var(--tarheel);
-  padding: 12px 16px; border-radius: 8px;
-  cursor: pointer; width: 100%; margin-top: 6px;
-  min-height: 46px; transition: all 0.2s;
-  text-transform: uppercase;
+  font-size: 0.74rem; letter-spacing: 0.1em;
+  background: transparent; border: 1px dashed var(--border-bright);
+  color: var(--tarheel); padding: 10px 14px; border-radius: 8px;
+  cursor: pointer; width: 100%; margin-top: 4px;
+  min-height: 42px; transition: all 0.2s; text-transform: uppercase;
 }
 .add-btn:hover, .add-btn:active {
-  border-color: var(--tarheel); background: rgba(123, 175, 212, 0.08);
-  box-shadow: 0 0 16px var(--tarheel-glow);
+  border-color: var(--tarheel); background: rgba(142, 197, 232, 0.08); box-shadow: 0 0 16px var(--tarheel-glow);
 }
 
-.value-section {
-  margin-top: 18px; padding-top: 18px;
-  border-top: 1px solid var(--border);
-}
+.value-section { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
 
-.btn-group { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
-.btn-group .btn { flex: 1 1 110px; }
+.btn-group { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+.btn-group .btn { flex: 1 1 90px; }
 .btn {
   font-family: 'Audiowide', monospace;
-  font-size: 0.78rem; letter-spacing: 0.12em;
-  text-transform: uppercase;
-  padding: 14px 18px; min-height: 48px;
-  border: none; border-radius: 8px;
-  cursor: pointer; transition: all 0.2s;
+  font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 12px 14px; min-height: 44px;
+  border: none; border-radius: 8px; cursor: pointer; transition: all 0.2s;
 }
-.btn-tarheel {
-  background: transparent; color: var(--tarheel);
-  border: 1px solid var(--tarheel);
-  box-shadow: 0 0 8px var(--tarheel-glow);
-}
-.btn-tarheel:hover, .btn-tarheel:active {
-  background: rgba(123, 175, 212, 0.15);
-  box-shadow: 0 0 18px var(--tarheel-glow);
-}
-.btn-indigo {
-  background: transparent; color: var(--indigo);
-  border: 1px solid var(--indigo);
-  box-shadow: 0 0 8px var(--indigo-glow);
-}
-.btn-indigo:hover, .btn-indigo:active {
-  background: rgba(129, 140, 248, 0.15);
-  box-shadow: 0 0 18px var(--indigo-glow);
-}
-.btn-violet {
-  background: transparent; color: var(--violet);
-  border: 1px solid var(--violet);
-  box-shadow: 0 0 8px var(--violet-glow);
-}
-.btn-violet:hover, .btn-violet:active {
-  background: rgba(167, 139, 250, 0.15);
-  box-shadow: 0 0 18px var(--violet-glow);
-}
-.btn .dice {
-  display: inline-block; margin-right: 6px;
-  transition: transform 0.3s ease;
-}
+.btn-tarheel { background: transparent; color: var(--tarheel); border: 1px solid var(--tarheel); box-shadow: 0 0 8px var(--tarheel-glow); }
+.btn-tarheel:hover, .btn-tarheel:active { background: rgba(142, 197, 232, 0.15); box-shadow: 0 0 18px var(--tarheel-glow); }
+.btn-indigo { background: transparent; color: var(--indigo); border: 1px solid var(--indigo); box-shadow: 0 0 8px var(--indigo-glow); }
+.btn-indigo:hover, .btn-indigo:active { background: rgba(154, 164, 255, 0.15); box-shadow: 0 0 18px var(--indigo-glow); }
+.btn-violet { background: transparent; color: var(--violet); border: 1px solid var(--violet); box-shadow: 0 0 8px var(--violet-glow); }
+.btn-violet:hover, .btn-violet:active { background: rgba(183, 157, 255, 0.15); box-shadow: 0 0 18px var(--violet-glow); }
+.btn .dice { display: inline-block; margin-right: 5px; }
 .btn:active .dice { animation: tumble 0.5s ease; }
-@keyframes tumble {
-  0%   { transform: rotate(0); }
-  50%  { transform: rotate(180deg) scale(1.2); }
-  100% { transform: rotate(360deg); }
-}
+@keyframes tumble { 0% { transform: rotate(0); } 50% { transform: rotate(180deg) scale(1.2); } 100% { transform: rotate(360deg); } }
 
 /* ════════════════════ RESULT DISPLAY ════════════════════ */
 .result-card {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: 14px; padding: 26px 20px 20px;
-  margin-bottom: 14px; text-align: center;
+  border-radius: 12px; padding: 16px 16px 14px; text-align: center;
   position: relative; overflow: hidden;
-  box-shadow: 0 0 32px rgba(0, 0, 0, 0.35), inset 0 0 40px rgba(0, 0, 0, 0.2);
-  transition: border-color 0.4s, box-shadow 0.4s;
+  background: var(--surface); border: 1px solid var(--border);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.32), inset 0 0 40px rgba(0, 0, 0, 0.2);
+  transition: border-color 0.4s, box-shadow 0.4s; margin-bottom: 12px;
 }
-.result-card[data-status="profit"] {
-  border-color: var(--profit);
-  box-shadow: 0 0 36px rgba(52, 211, 153, 0.18), inset 0 0 40px rgba(52, 211, 153, 0.05);
-}
-.result-card[data-status="loss"] {
-  border-color: var(--loss);
-  box-shadow: 0 0 36px rgba(248, 113, 113, 0.18), inset 0 0 40px rgba(248, 113, 113, 0.05);
-}
-.result-card[data-status="neutral"] {
-  border-color: var(--gold);
-  box-shadow: 0 0 36px rgba(251, 191, 36, 0.15), inset 0 0 40px rgba(251, 191, 36, 0.04);
-}
-.result-card[data-status="idle"] {
-  border-color: var(--border);
-  box-shadow: 0 0 22px rgba(50, 66, 135, 0.15), inset 0 0 40px rgba(0, 0, 0, 0.2);
-}
+.result-card[data-status="profit"] { border-color: var(--profit); box-shadow: 0 0 36px rgba(74, 222, 128, 0.2), inset 0 0 40px rgba(74, 222, 128, 0.05); }
+.result-card[data-status="loss"]   { border-color: var(--loss);   box-shadow: 0 0 36px rgba(255, 107, 107, 0.2), inset 0 0 40px rgba(255, 107, 107, 0.05); }
+.result-card[data-status="neutral"]{ border-color: var(--gold);   box-shadow: 0 0 36px rgba(255, 207, 64, 0.16), inset 0 0 40px rgba(255, 207, 64, 0.04); }
+.result-card[data-status="idle"]   { border-color: var(--border); }
 
 .result-label {
   font-family: 'Audiowide', monospace;
-  font-size: 0.82rem; letter-spacing: 0.22em;
-  color: var(--muted); text-transform: uppercase;
-  margin-bottom: 14px;
+  font-size: 0.8rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 8px;
 }
-
+/* MUCH larger ROI number */
 .result-roi {
-  font-family: 'Orbitron', sans-serif;
-  font-weight: 900;
-  font-size: clamp(2.6rem, 12vw, 5rem);
-  line-height: 1;
-  margin-bottom: 14px;
-  letter-spacing: 0.02em;
+  font-family: 'Orbitron', sans-serif; font-weight: 900;
+  font-size: clamp(3.4rem, 11vw, 5.6rem);
+  line-height: 1; margin-bottom: 12px; letter-spacing: 0.01em;
   transition: color 0.4s, text-shadow 0.4s;
 }
-.result-roi.profit  { color: var(--profit); text-shadow: 0 0 22px var(--profit-glow), 0 0 44px rgba(52, 211, 153, 0.3); }
-.result-roi.loss    { color: var(--loss);   text-shadow: 0 0 22px var(--loss-glow),   0 0 44px rgba(248, 113, 113, 0.3); }
-.result-roi.neutral { color: var(--gold);   text-shadow: 0 0 22px var(--gold-glow); }
-.result-roi.idle    { color: var(--muted); opacity: 0.6; }
+.result-roi.profit  { color: var(--profit); text-shadow: 0 0 24px var(--profit-glow), 0 0 48px rgba(74, 222, 128, 0.35); }
+.result-roi.loss    { color: var(--loss);   text-shadow: 0 0 24px var(--loss-glow),   0 0 48px rgba(255, 107, 107, 0.35); }
+.result-roi.neutral { color: var(--gold);   text-shadow: 0 0 24px var(--gold-glow); }
+.result-roi.idle    { color: var(--muted); opacity: 0.55; }
 
 .status-badge {
   display: inline-block;
   font-family: 'Audiowide', monospace;
-  font-size: 0.78rem; letter-spacing: 0.2em;
-  padding: 7px 18px; border-radius: 22px;
-  text-transform: uppercase; margin-bottom: 20px;
-  transition: all 0.4s;
+  font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 6px 16px; border-radius: 20px; margin-bottom: 14px; transition: all 0.4s;
 }
-.status-badge.profit  { background: rgba(52, 211, 153, 0.1);  color: var(--profit); border: 1px solid var(--profit); text-shadow: 0 0 10px var(--profit-glow); }
-.status-badge.loss    { background: rgba(248, 113, 113, 0.1); color: var(--loss);   border: 1px solid var(--loss);   text-shadow: 0 0 10px var(--loss-glow); }
-.status-badge.neutral { background: rgba(251, 191, 36, 0.1);  color: var(--gold);   border: 1px solid var(--gold);   text-shadow: 0 0 10px var(--gold-glow); }
+.status-badge.profit  { background: rgba(74, 222, 128, 0.1);  color: var(--profit); border: 1px solid var(--profit); text-shadow: 0 0 10px var(--profit-glow); }
+.status-badge.loss    { background: rgba(255, 107, 107, 0.1); color: var(--loss);   border: 1px solid var(--loss);   text-shadow: 0 0 10px var(--loss-glow); }
+.status-badge.neutral { background: rgba(255, 207, 64, 0.1);  color: var(--gold);   border: 1px solid var(--gold);   text-shadow: 0 0 10px var(--gold-glow); }
 .status-badge.idle    { background: transparent; color: var(--muted); border: 1px solid var(--border); }
 
-/* ROI Gauge */
 .roi-gauge {
-  position: relative; height: 32px;
-  background:
-    linear-gradient(90deg,
-      rgba(248, 113, 113, 0.28) 0%,
-      rgba(248, 113, 113, 0.10) 45%,
-      rgba(251, 191, 36, 0.10) 50%,
-      rgba(52, 211, 153, 0.10) 55%,
-      rgba(52, 211, 153, 0.28) 100%);
-  border: 1px solid var(--border);
-  border-radius: 16px; overflow: hidden;
-  margin: 16px 2px 0;
+  position: relative; height: 26px;
+  background: linear-gradient(90deg,
+    rgba(255, 107, 107, 0.3) 0%, rgba(255, 107, 107, 0.1) 45%,
+    rgba(255, 207, 64, 0.1) 50%, rgba(74, 222, 128, 0.1) 55%, rgba(74, 222, 128, 0.3) 100%);
+  border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin: 12px 2px 0;
 }
-.roi-gauge-center {
-  position: absolute; left: 50%; top: 0; bottom: 0;
-  width: 2px; background: var(--muted); opacity: 0.45;
-  transform: translateX(-50%);
-}
+.roi-gauge-center { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: var(--muted); opacity: 0.45; transform: translateX(-50%); }
 .roi-gauge-needle {
-  position: absolute; top: -2px; bottom: -2px;
-  width: 4px; border-radius: 2px;
-  transform: translateX(-50%);
+  position: absolute; top: -2px; bottom: -2px; width: 4px; border-radius: 2px; transform: translateX(-50%);
   transition: left 0.6s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.4s, box-shadow 0.4s, opacity 0.3s;
 }
 .roi-gauge-needle.profit  { background: var(--profit); box-shadow: 0 0 14px var(--profit-glow), 0 0 28px var(--profit-glow); }
 .roi-gauge-needle.loss    { background: var(--loss);   box-shadow: 0 0 14px var(--loss-glow),   0 0 28px var(--loss-glow); }
 .roi-gauge-needle.neutral { background: var(--gold);   box-shadow: 0 0 14px var(--gold-glow); }
 .roi-gauge-needle.idle    { background: var(--muted); opacity: 0.4; }
-
 .gauge-labels {
-  display: flex; justify-content: space-between;
-  margin-top: 8px; padding: 0 2px;
-  font-size: 0.7rem; color: var(--muted);
-  letter-spacing: 0.08em;
-  font-family: 'Audiowide', monospace;
+  display: flex; justify-content: space-between; margin-top: 6px; padding: 0 2px;
+  font-size: 0.68rem; color: var(--muted); letter-spacing: 0.06em; font-family: 'Audiowide', monospace;
 }
 
 /* ════════════════════ BREAKDOWN ════════════════════ */
-.breakdown {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: 12px; padding: 18px;
-  margin-bottom: 14px;
-}
-.breakdown-title {
-  font-family: 'Audiowide', monospace;
-  font-size: 0.78rem; letter-spacing: 0.18em;
-  color: var(--tarheel); text-transform: uppercase;
-  margin-bottom: 16px; text-align: center;
-  text-shadow: 0 0 10px var(--tarheel-glow);
-}
-.breakdown-step {
-  padding: 12px 0;
-  border-bottom: 1px dashed rgba(80, 102, 196, 0.35);
-}
-.breakdown-step:last-of-type { border-bottom: none; padding-bottom: 4px; }
-.breakdown-step:first-child  { padding-top: 0; }
+.breakdown-step { padding: 9px 0; border-bottom: 1px dashed rgba(80, 102, 196, 0.4); }
+.breakdown-step:last-of-type { border-bottom: none; padding-bottom: 2px; }
+.breakdown-step:first-of-type { padding-top: 0; }
+/* BRIGHTER step labels */
 .step-label {
   font-family: 'Audiowide', monospace;
-  font-size: 0.68rem; letter-spacing: 0.14em;
-  color: var(--muted); text-transform: uppercase;
-  margin-bottom: 6px;
+  font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--indigo); margin-bottom: 5px; text-shadow: 0 0 6px var(--indigo-glow);
 }
-.step-math {
-  display: flex; justify-content: space-between; align-items: baseline;
-  flex-wrap: wrap; gap: 10px;
-}
-.step-expr { color: var(--text); opacity: 0.85; word-break: break-word; font-size: 0.95rem; }
+.step-math { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; }
+.step-expr { color: var(--text); opacity: 0.8; word-break: break-word; font-size: 0.92rem; }
+/* LARGER result numbers */
 .step-result {
-  font-family: 'Share Tech Mono', monospace;
-  font-weight: bold; font-size: 1.15rem;
-  white-space: nowrap;
+  font-family: 'Share Tech Mono', monospace; font-weight: bold;
+  font-size: 1.4rem; white-space: nowrap;
 }
 .step-result.cost    { color: var(--indigo);  text-shadow: 0 0 8px var(--indigo-glow); }
 .step-result.value   { color: var(--tarheel); text-shadow: 0 0 8px var(--tarheel-glow); }
 .step-result.profit  { color: var(--profit);  text-shadow: 0 0 8px var(--profit-glow); }
 .step-result.loss    { color: var(--loss);    text-shadow: 0 0 8px var(--loss-glow); }
 .step-result.neutral { color: var(--gold);    text-shadow: 0 0 8px var(--gold-glow); }
-.step-result.idle    { color: var(--muted); opacity: 0.6; }
+.step-result.idle    { color: var(--muted); opacity: 0.55; }
 
-/* Metrics chips */
-.metrics-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
-  gap: 10px; margin-top: 16px;
-}
-.metric-card {
-  background: var(--surface2); border: 1px solid var(--border);
-  border-radius: 8px; padding: 12px 10px;
-  text-align: center;
-}
+.metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 12px; }
+.metric-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 8px; text-align: center; }
 .metric-label {
   font-family: 'Audiowide', monospace;
-  font-size: 0.62rem; letter-spacing: 0.14em;
-  color: var(--muted); text-transform: uppercase;
-  margin-bottom: 8px;
+  font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 6px;
 }
+/* LARGER metric numbers */
 .metric-value {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 1.2rem; font-weight: bold; color: var(--text);
-  transition: color 0.3s, text-shadow 0.3s;
+  font-family: 'Share Tech Mono', monospace; font-weight: bold;
+  font-size: 1.3rem; color: var(--text); transition: color 0.3s, text-shadow 0.3s;
 }
 .metric-value.tarheel { color: var(--tarheel); text-shadow: 0 0 8px var(--tarheel-glow); }
 .metric-value.indigo  { color: var(--indigo);  text-shadow: 0 0 8px var(--indigo-glow); }
 .metric-value.profit  { color: var(--profit);  text-shadow: 0 0 8px var(--profit-glow); }
 .metric-value.loss    { color: var(--loss);    text-shadow: 0 0 8px var(--loss-glow); }
 .metric-value.gold    { color: var(--gold);    text-shadow: 0 0 8px var(--gold-glow); }
-.metric-value.idle    { color: var(--muted); opacity: 0.6; }
+.metric-value.idle    { color: var(--muted); opacity: 0.55; }
 
 /* ════════════════════ COMPARE TAB ════════════════════ */
 .intro-card {
-  background:
-    linear-gradient(135deg, rgba(123, 175, 212, 0.05), rgba(129, 140, 248, 0.06));
-  border: 1px solid var(--border);
-  border-radius: 12px; padding: 18px;
-  margin-bottom: 14px; text-align: center;
+  background: linear-gradient(135deg, rgba(142, 197, 232, 0.05), rgba(154, 164, 255, 0.06));
+  border: 1px solid var(--border); border-radius: 12px; padding: 12px;
+  margin-bottom: 12px; text-align: center;
 }
-.intro-card p { color: var(--muted); font-size: 0.88rem; line-height: 1.6; }
+.intro-card p { color: var(--muted); font-size: 0.86rem; line-height: 1.55; }
 .intro-card .tarheel-text { color: var(--tarheel); text-shadow: 0 0 8px var(--tarheel-glow); font-weight: bold; }
 .intro-card .gold-text    { color: var(--gold);    text-shadow: 0 0 8px var(--gold-glow);    font-weight: bold; }
 
-.scenarios-container { display: grid; gap: 14px; }
+.scenarios-container { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media(max-width: 720px) { .scenarios-container { grid-template-columns: 1fr; } }
 
-.scenario-card {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: 12px; padding: 16px;
-  position: relative; transition: border-color 0.4s, box-shadow 0.4s;
-}
-.scenario-card.best {
-  border-color: var(--gold);
-  box-shadow: 0 0 24px var(--gold-glow), inset 0 0 36px rgba(251, 191, 36, 0.05);
-}
+.scenario-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px; position: relative; transition: border-color 0.4s, box-shadow 0.4s; }
+.scenario-card.best { border-color: var(--gold); box-shadow: 0 0 24px var(--gold-glow), inset 0 0 36px rgba(255, 207, 64, 0.05); }
 .best-badge {
-  position: absolute; top: -11px; left: 50%;
-  transform: translateX(-50%);
+  position: absolute; top: -11px; left: 50%; transform: translateX(-50%);
   background: var(--gold); color: #1a1f4a;
-  font-family: 'Audiowide', monospace;
-  font-size: 0.72rem; letter-spacing: 0.16em;
-  padding: 5px 14px; border-radius: 12px;
-  white-space: nowrap; font-weight: bold;
-  box-shadow: 0 0 16px var(--gold-glow);
-  display: none;
+  font-family: 'Audiowide', monospace; font-size: 0.7rem; letter-spacing: 0.14em;
+  padding: 5px 13px; border-radius: 12px; white-space: nowrap; font-weight: bold;
+  box-shadow: 0 0 16px var(--gold-glow); display: none;
 }
 .scenario-card.best .best-badge { display: block; }
 
-.scenario-header {
-  display: flex; gap: 8px; margin-bottom: 12px; align-items: stretch;
-}
-.scenario-name {
-  flex: 1; min-height: 42px;
-  font-family: 'Audiowide', monospace; font-size: 0.92rem;
-}
+.scenario-header { display: flex; gap: 8px; margin-bottom: 10px; align-items: stretch; }
+.scenario-name { flex: 1; min-height: 40px; font-family: 'Audiowide', monospace; font-size: 0.9rem; }
 .scenario-name:focus { border-color: var(--indigo); box-shadow: 0 0 14px var(--indigo-glow); }
 .scenario-remove {
-  background: transparent; border: 1px solid var(--border);
-  color: var(--loss); font-size: 1.2rem; line-height: 1;
-  padding: 0 14px; border-radius: 6px;
-  cursor: pointer; min-height: 42px;
-  transition: all 0.2s;
+  background: transparent; border: 1px solid var(--border); color: var(--loss);
+  font-size: 1.15rem; line-height: 1; padding: 0 13px; border-radius: 6px;
+  cursor: pointer; min-height: 40px; transition: all 0.2s;
 }
-.scenario-remove:hover, .scenario-remove:active {
-  border-color: var(--loss); background: rgba(248, 113, 113, 0.12);
-  box-shadow: 0 0 12px var(--loss-glow);
-}
+.scenario-remove:hover, .scenario-remove:active { border-color: var(--loss); background: rgba(255, 107, 107, 0.12); box-shadow: 0 0 12px var(--loss-glow); }
 
-.scenario-inputs {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 10px; margin-bottom: 12px;
-}
-@media(max-width: 460px) { .scenario-inputs { grid-template-columns: 1fr; } }
 .scenario-field label {
   font-family: 'Audiowide', monospace;
-  font-size: 0.62rem; letter-spacing: 0.14em;
-  color: var(--muted); text-transform: uppercase;
-  margin-bottom: 5px; display: block;
+  font-size: 0.64rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--tarheel); margin-bottom: 5px; display: block;
+  text-shadow: 0 0 6px var(--tarheel-glow);
 }
+.scenario-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-bottom: 10px; }
 
-.scenario-result {
-  display: flex; justify-content: space-around;
-  padding: 12px; background: var(--bg);
-  border-radius: 8px; border: 1px solid var(--border);
-  flex-wrap: wrap; gap: 10px;
-}
-.scenario-result-item { text-align: center; min-width: 90px; }
-.scenario-result-item .lbl {
-  font-family: 'Audiowide', monospace;
-  font-size: 0.6rem; letter-spacing: 0.14em;
-  color: var(--muted); text-transform: uppercase;
-  margin-bottom: 4px;
-}
-.scenario-result-item .val {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 1.05rem; font-weight: bold;
-  transition: color 0.3s, text-shadow 0.3s;
-  min-height: 1.2em;
-}
+.scenario-result { display: flex; justify-content: space-around; padding: 11px; background: var(--bg); border-radius: 8px; border: 1px solid var(--border); flex-wrap: wrap; gap: 8px; }
+.scenario-result-item { text-align: center; min-width: 88px; }
+.scenario-result-item .lbl { font-family: 'Audiowide', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.scenario-result-item .val { font-family: 'Share Tech Mono', monospace; font-size: 1.25rem; font-weight: bold; transition: color 0.3s, text-shadow 0.3s; min-height: 1.2em; }
 .scenario-result-item .val.profit { color: var(--profit); text-shadow: 0 0 8px var(--profit-glow); }
 .scenario-result-item .val.loss   { color: var(--loss);   text-shadow: 0 0 8px var(--loss-glow); }
 .scenario-result-item .val.muted  { color: var(--muted); }
 
-.compare-actions {
-  display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap;
-}
+.compare-actions { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
 .compare-actions .add-btn { flex: 1 1 200px; margin-top: 0; }
 .compare-actions .btn { flex: 1 1 160px; }
 
 /* ════════════════════ TOAST ════════════════════ */
 #toast {
-  position: fixed; bottom: 24px; left: 50%;
-  transform: translateX(-50%) translateY(20px);
-  background: var(--surface);
-  border: 1px solid var(--tarheel); color: var(--tarheel);
-  padding: 12px 22px; border-radius: 8px;
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.88rem; opacity: 0;
-  transition: all 0.3s; pointer-events: none;
-  z-index: 200; max-width: 90vw; text-align: center;
-  box-shadow: 0 0 22px var(--tarheel-glow);
+  position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(20px);
+  background: var(--surface); border: 1px solid var(--tarheel); color: var(--tarheel);
+  padding: 11px 20px; border-radius: 8px; font-family: 'Share Tech Mono', monospace;
+  font-size: 0.86rem; opacity: 0; transition: all 0.3s; pointer-events: none;
+  z-index: 200; max-width: 90vw; text-align: center; box-shadow: 0 0 22px var(--tarheel-glow);
 }
 #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-/* ════════════════════ FOOTER ════════════════════ */
-.footer-note {
-  text-align: center; margin-top: 24px;
-  font-size: 0.72rem; color: var(--muted); opacity: 0.6;
-  letter-spacing: 0.1em;
-}
-.footer-note .accent { color: var(--tarheel); }
-
 @supports(padding-bottom: env(safe-area-inset-bottom)) {
-  body { padding-bottom: calc(60px + env(safe-area-inset-bottom)); }
+  body { padding-bottom: calc(20px + env(safe-area-inset-bottom)); }
 }
 </style>
 </head>
@@ -653,7 +488,6 @@ body::before {
     <div class="tab-panel active" id="panel-roi">
 
       <div class="formula-card">
-        <div class="formula-label">▸ Return on Investment Formula ◂</div>
         <div class="formula">
           <span class="lhs">ROI</span>
           <span class="eq">=</span>
@@ -666,119 +500,113 @@ body::before {
         </div>
       </div>
 
-      <div class="panel-section">
-        <div class="cost-items-header">
-          <span class="ctrl-label" style="margin: 0">Project Costs</span>
-          <span class="cost-items-hint">label · amount</span>
-        </div>
-        <div id="costItems"></div>
-        <button class="add-btn" id="addCostBtn">+ Add Cost Line</button>
+      <div class="roi-grid">
 
-        <div class="value-section">
-          <label class="ctrl-label" for="financialValue">Financial Value (Return / Revenue)</label>
-          <div class="num-prefix">
-            <span class="currency">$</span>
-            <input class="num-input value-input" id="financialValue" type="text" inputmode="decimal" placeholder="0" aria-label="Financial Value">
+        <!-- LEFT: Inputs -->
+        <div class="col-left">
+          <div class="card">
+            <div class="card-heading tarheel"><span class="tick">▸</span> Inputs</div>
+
+            <div class="cost-items-header">
+              <span class="field-label" style="margin: 0">Project Costs</span>
+              <span class="cost-items-hint">label · amount</span>
+            </div>
+            <div id="costItems"></div>
+            <button class="add-btn" id="addCostBtn">+ Add Cost Line</button>
+
+            <div class="value-section">
+              <label class="field-label" for="financialValue">Financial Value (Return / Revenue)</label>
+              <div class="num-prefix">
+                <span class="currency">$</span>
+                <input class="num-input value-input" id="financialValue" type="text" inputmode="decimal" placeholder="0" aria-label="Financial Value">
+              </div>
+            </div>
+
+            <div class="btn-group">
+              <button class="btn btn-tarheel" id="resetBtn">RESET</button>
+              <button class="btn btn-violet" id="randomBtn"><span class="dice">⚄</span>RANDOM</button>
+              <button class="btn btn-indigo" id="calcBtn">CALCULATE</button>
+            </div>
           </div>
         </div>
 
-        <div class="btn-group">
-          <button class="btn btn-tarheel" id="resetBtn">RESET</button>
-          <button class="btn btn-violet" id="randomBtn"><span class="dice">⚄</span>RANDOMIZE</button>
-          <button class="btn btn-indigo" id="calcBtn">CALCULATE</button>
+        <!-- RIGHT: Results -->
+        <div class="col-right">
+          <div class="result-card" id="resultCard" data-status="idle">
+            <div class="result-label">Return on Investment</div>
+            <div class="result-roi idle" id="resultRoi">—</div>
+            <div class="status-badge idle" id="statusBadge">AWAITING INPUT</div>
+            <div class="roi-gauge">
+              <div class="roi-gauge-center"></div>
+              <div class="roi-gauge-needle idle" id="gaugeNeedle" style="left: 50%;"></div>
+            </div>
+            <div class="gauge-labels"><span>−100%</span><span>0%</span><span>+100%</span></div>
+          </div>
+
+          <div class="card">
+            <div class="card-heading indigo"><span class="tick">▸</span> Breakdown</div>
+            <div class="breakdown-step">
+              <div class="step-label">Total Project Cost</div>
+              <div class="step-math">
+                <span class="step-expr" id="costExpr">—</span>
+                <span class="step-result idle" id="costResult">$0</span>
+              </div>
+            </div>
+            <div class="breakdown-step">
+              <div class="step-label">Financial Value</div>
+              <div class="step-math">
+                <span class="step-expr">Revenue / Return</span>
+                <span class="step-result idle" id="valueResult">$0</span>
+              </div>
+            </div>
+            <div class="breakdown-step">
+              <div class="step-label">Net Gain / Loss</div>
+              <div class="step-math">
+                <span class="step-expr" id="netExpr">—</span>
+                <span class="step-result idle" id="netResult">$0</span>
+              </div>
+            </div>
+            <div class="breakdown-step">
+              <div class="step-label">Return on Investment</div>
+              <div class="step-math">
+                <span class="step-expr" id="roiExpr">—</span>
+                <span class="step-result idle" id="roiResult">—</span>
+              </div>
+            </div>
+
+            <div class="metrics-grid">
+              <div class="metric-card">
+                <div class="metric-label">Total Cost</div>
+                <div class="metric-value idle" id="metricCost">$0</div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-label">Net Gain / Loss</div>
+                <div class="metric-value idle" id="metricNet">$0</div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-label">Cost Recovery</div>
+                <div class="metric-value idle" id="metricRecovery">—</div>
+              </div>
+            </div>
+          </div>
         </div>
+
       </div>
-
-      <div class="result-card" id="resultCard" data-status="idle">
-        <div class="result-label">Return on Investment</div>
-        <div class="result-roi idle" id="resultRoi">—</div>
-        <div class="status-badge idle" id="statusBadge">AWAITING INPUT</div>
-        <div class="roi-gauge">
-          <div class="roi-gauge-center"></div>
-          <div class="roi-gauge-needle idle" id="gaugeNeedle" style="left: 50%;"></div>
-        </div>
-        <div class="gauge-labels">
-          <span>−100%</span>
-          <span>0%</span>
-          <span>+100%</span>
-        </div>
-      </div>
-
-      <div class="breakdown">
-        <div class="breakdown-title">▸ Calculation Breakdown ◂</div>
-        <div class="breakdown-step">
-          <div class="step-label">Total Project Cost</div>
-          <div class="step-math">
-            <span class="step-expr" id="costExpr">—</span>
-            <span class="step-result idle" id="costResult">$0</span>
-          </div>
-        </div>
-        <div class="breakdown-step">
-          <div class="step-label">Financial Value</div>
-          <div class="step-math">
-            <span class="step-expr">Revenue / Return</span>
-            <span class="step-result idle" id="valueResult">$0</span>
-          </div>
-        </div>
-        <div class="breakdown-step">
-          <div class="step-label">Net Gain / Loss</div>
-          <div class="step-math">
-            <span class="step-expr" id="netExpr">—</span>
-            <span class="step-result idle" id="netResult">$0</span>
-          </div>
-        </div>
-        <div class="breakdown-step">
-          <div class="step-label">Return on Investment</div>
-          <div class="step-math">
-            <span class="step-expr" id="roiExpr">—</span>
-            <span class="step-result idle" id="roiResult">—</span>
-          </div>
-        </div>
-
-        <div class="metrics-grid">
-          <div class="metric-card">
-            <div class="metric-label">Total Cost</div>
-            <div class="metric-value idle" id="metricCost">$0</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-label">Net Gain / Loss</div>
-            <div class="metric-value idle" id="metricNet">$0</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-label">Cost Recovery</div>
-            <div class="metric-value idle" id="metricRecovery">—</div>
-          </div>
-        </div>
-      </div>
-
     </div>
 
     <!-- ════════════════════ COMPARE TAB ════════════════════ -->
     <div class="tab-panel" id="panel-compare">
-
       <div class="intro-card">
-        <p>
-          Enter <span class="tarheel-text">cost</span> and <span class="tarheel-text">expected return</span>
-          for each scenario.<br>
-          The highest ROI gets crowned with a <span class="gold-text">★ BEST DEAL ★</span> badge.
-        </p>
+        <p>Enter <span class="tarheel-text">cost</span> and <span class="tarheel-text">expected return</span> for each scenario. The highest ROI is crowned with a <span class="gold-text">★ BEST DEAL ★</span> badge.</p>
       </div>
-
       <div class="scenarios-container" id="scenariosContainer"></div>
-
       <div class="compare-actions">
         <button class="add-btn" id="addScenarioBtn">+ Add Scenario</button>
         <button class="btn btn-violet" id="randomScenariosBtn"><span class="dice">⚄</span>RANDOMIZE ALL</button>
       </div>
-
     </div>
 
   </main>
-
-  <div class="footer-note">
-    ▸ <span class="accent">★</span> MADE FOR FINANCIAL CLARITY <span class="accent">★</span> ◂
-  </div>
-
 </div>
 
 <div id="toast" role="status" aria-live="polite"></div>
@@ -817,12 +645,8 @@ function showToast(msg) {
   toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2400);
 }
 
-/* ════════════════════ AUTO-COMMA FORMATTER ════════════════════
-   Inserts thousands separators as the user types and preserves caret
-   position. Accepts one optional decimal point.
-   ──────────────────────────────────────────────────────────────── */
+/* ════════════════════ AUTO-COMMA FORMATTER ════════════════════ */
 function formatWithCommas(raw) {
-  // Allow only digits and a single decimal point
   let cleaned = String(raw).replace(/[^0-9.]/g, '');
   const dotIdx = cleaned.indexOf('.');
   if (dotIdx !== -1) {
@@ -837,23 +661,17 @@ function formatWithCommas(raw) {
 function attachAutoFormat(input) {
   if (input.dataset.autoFormatted) return;
   input.dataset.autoFormatted = '1';
-
   input.addEventListener('input', (e) => {
     const target = e.target;
     const oldValue = target.value;
     const oldCaret = target.selectionStart || 0;
-
-    // Count digits/dots before the caret in the OLD string
     let charsBefore = 0;
     for (let i = 0; i < oldCaret; i++) {
       if (/[0-9.]/.test(oldValue[i])) charsBefore++;
     }
-
     const formatted = formatWithCommas(oldValue);
     if (formatted === oldValue) return;
     target.value = formatted;
-
-    // Place caret after the same number of digits/dots
     let newCaret = formatted.length;
     if (charsBefore === 0) {
       newCaret = 0;
@@ -889,17 +707,14 @@ const COST_CATEGORIES = [
   'Permits and licenses', 'Utilities', 'Vendor costs', 'Promotional items',
   'Logistics & shipping', 'Office rental', 'Tech infrastructure', 'Branded merchandise',
   'Photography services', 'Social media ads', 'Influencer partnerships', 'Booth rental',
-  'Research & analysis', 'Decorations', 'Security services', 'Hardware purchase',
-  'Subscription fees', 'Audio/visual setup', 'Staff training', 'Quality assurance'
+  'Research & analysis', 'Decorations', 'Security services', 'Hardware purchase'
 ];
-
 const SCENARIO_NAMES = [
   'Event Sponsorship', 'Marketing Campaign', 'Product Launch', 'Trade Show Booth',
   'Brand Activation', 'Pop-up Store', 'Conference Hosting', 'Influencer Push',
   'Community Outreach', 'Charity Drive', 'Webinar Series', 'Loyalty Program',
   'Holiday Promotion', 'Referral Program', 'Content Campaign', 'Roadshow Tour'
 ];
-
 function randInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
 function shuffle(arr) {
   const a = arr.slice();
@@ -929,10 +744,7 @@ function createCostItem(label = '', amount = '') {
     <button class="remove-btn" aria-label="Remove cost line" title="Remove">×</button>
   `;
   row.querySelector('.remove-btn').addEventListener('click', () => {
-    if (costItemsEl.children.length <= 1) {
-      showToast('▲ At least one cost line is required');
-      return;
-    }
+    if (costItemsEl.children.length <= 1) { showToast('▲ At least one cost line is required'); return; }
     row.remove();
     calculate();
   });
@@ -961,19 +773,15 @@ function calculate() {
   const roi       = totalCost > 0 ? (netGain / totalCost) * 100 : NaN;
   const recovery  = totalCost > 0 ? (value / totalCost) * 100 : NaN;
 
-  // Determine status
   let status = 'idle';
   let statusText = 'AWAITING INPUT';
   if (totalCost > 0 || value > 0) {
-    if (!isFinite(roi)) {
-      status = 'idle';
-      statusText = 'ENTER A COST';
-    } else if (roi >  0.005) { status = 'profit';  statusText = 'PROFITABLE'; }
-      else if (roi < -0.005) { status = 'loss';    statusText = 'NET LOSS'; }
-      else                   { status = 'neutral'; statusText = 'BREAK-EVEN'; }
+    if (!isFinite(roi)) { status = 'idle'; statusText = 'ENTER A COST'; }
+    else if (roi >  0.005) { status = 'profit';  statusText = 'PROFITABLE'; }
+    else if (roi < -0.005) { status = 'loss';    statusText = 'NET LOSS'; }
+    else                   { status = 'neutral'; statusText = 'BREAK-EVEN'; }
   }
 
-  // Main result card
   const resultCard = $('#resultCard');
   resultCard.dataset.status = status;
 
@@ -985,18 +793,14 @@ function calculate() {
   badge.textContent = statusText;
   badge.className = 'status-badge ' + status;
 
-  // Gauge needle
   const needle = $('#gaugeNeedle');
   needle.className = 'roi-gauge-needle ' + status;
   const safeRoi = isFinite(roi) ? roi : 0;
   const clamped = Math.max(-100, Math.min(100, safeRoi));
   needle.style.left = ((clamped + 100) / 200 * 100) + '%';
 
-  // Breakdown — cost expression
   const nonzeroCosts = costs.filter(c => c.amount !== 0);
-  $('#costExpr').textContent = nonzeroCosts.length
-    ? nonzeroCosts.map(c => fmt(c.amount)).join(' + ')
-    : '—';
+  $('#costExpr').textContent = nonzeroCosts.length ? nonzeroCosts.map(c => fmt(c.amount)).join(' + ') : '—';
 
   const costResultEl = $('#costResult');
   costResultEl.textContent = fmt(totalCost);
@@ -1006,56 +810,38 @@ function calculate() {
   valueResultEl.textContent = fmt(value);
   valueResultEl.className = 'step-result ' + (value > 0 ? 'value' : 'idle');
 
-  $('#netExpr').textContent = (totalCost || value)
-    ? `${fmt(value)} − ${fmt(totalCost)}`
-    : '—';
+  $('#netExpr').textContent = (totalCost || value) ? `${fmt(value)} − ${fmt(totalCost)}` : '—';
 
   const netEl = $('#netResult');
   if (totalCost === 0 && value === 0) {
-    netEl.textContent = '$0';
-    netEl.className = 'step-result idle';
+    netEl.textContent = '$0'; netEl.className = 'step-result idle';
   } else {
     netEl.textContent = fmt(netGain);
     netEl.className = 'step-result ' + (netGain > 0 ? 'profit' : netGain < 0 ? 'loss' : 'neutral');
   }
 
-  $('#roiExpr').textContent = isFinite(roi)
-    ? `(${fmt(netGain)} ÷ ${fmt(totalCost)}) × 100`
-    : '—';
+  $('#roiExpr').textContent = isFinite(roi) ? `(${fmt(netGain)} ÷ ${fmt(totalCost)}) × 100` : '—';
   const roiEl = $('#roiResult');
-  if (isFinite(roi)) {
-    roiEl.textContent = fmtPct(roi);
-    roiEl.className = 'step-result ' + status;
-  } else {
-    roiEl.textContent = '—';
-    roiEl.className = 'step-result idle';
-  }
+  if (isFinite(roi)) { roiEl.textContent = fmtPct(roi); roiEl.className = 'step-result ' + status; }
+  else { roiEl.textContent = '—'; roiEl.className = 'step-result idle'; }
 
-  // Metric chips
   const metricCost = $('#metricCost');
   metricCost.textContent = fmt(totalCost);
   metricCost.className = 'metric-value ' + (totalCost > 0 ? 'indigo' : 'idle');
 
   const metricNet = $('#metricNet');
   if (totalCost === 0 && value === 0) {
-    metricNet.textContent = '$0';
-    metricNet.className = 'metric-value idle';
+    metricNet.textContent = '$0'; metricNet.className = 'metric-value idle';
   } else {
     metricNet.textContent = fmt(netGain);
     metricNet.className = 'metric-value ' + (netGain > 0 ? 'profit' : netGain < 0 ? 'loss' : 'gold');
   }
 
   const metricRec = $('#metricRecovery');
-  if (isFinite(recovery)) {
-    metricRec.textContent = recovery.toFixed(1) + '%';
-    metricRec.className = 'metric-value gold';
-  } else {
-    metricRec.textContent = '—';
-    metricRec.className = 'metric-value idle';
-  }
+  if (isFinite(recovery)) { metricRec.textContent = recovery.toFixed(1) + '%'; metricRec.className = 'metric-value gold'; }
+  else { metricRec.textContent = '—'; metricRec.className = 'metric-value idle'; }
 }
 
-// Reset to empty
 function resetROI() {
   loadCostItems([{ label: '', amount: '' }, { label: '', amount: '' }]);
   $('#financialValue').value = '';
@@ -1069,32 +855,14 @@ $('#addCostBtn').addEventListener('click', () => {
   costItemsEl.appendChild(createCostItem('', ''));
   costItemsEl.lastElementChild.querySelector('.label-input').focus();
 });
-
 $('#financialValue').addEventListener('input', calculate);
+$('#resetBtn').addEventListener('click', () => { resetROI(); showToast('◇ Cleared'); });
+$('#calcBtn').addEventListener('click', () => { calculate(); showToast('◆ Recalculated'); });
 
-$('#resetBtn').addEventListener('click', () => {
-  resetROI();
-  showToast('◇ Cleared');
-});
-
-$('#calcBtn').addEventListener('click', () => {
-  calculate();
-  showToast('◆ Recalculated');
-});
-
-/* ════════════════════ RANDOMIZER (single project) ════════════════════
-   Builds a varied scenario:
-   • 2–4 random cost categories (no duplicates)
-   • Amounts $500 – $25,000, rounded to nearest $250
-   • Multiplier 0.4 – 2.2 → ROI roughly −60% to +120%
-   ──────────────────────────────────────────────────────────────────── */
 function generateRandomScenario() {
   const numCosts = randInt(2, 4);
   const categories = shuffle(COST_CATEGORIES).slice(0, numCosts);
-  const items = categories.map(cat => ({
-    label: cat,
-    amount: roundTo(randInt(500, 25000), 250).toLocaleString('en-US')
-  }));
+  const items = categories.map(cat => ({ label: cat, amount: roundTo(randInt(500, 25000), 250).toLocaleString('en-US') }));
   const totalCost = items.reduce((s, it) => s + parseNum(it.amount), 0);
   const multiplier = 0.4 + Math.random() * 1.8;
   const value = roundTo(totalCost * multiplier, 250);
@@ -1141,21 +909,12 @@ function createScenario(data = {}) {
       </div>
     </div>
     <div class="scenario-result">
-      <div class="scenario-result-item">
-        <div class="lbl">ROI</div>
-        <div class="val scenario-roi muted">—</div>
-      </div>
-      <div class="scenario-result-item">
-        <div class="lbl">Net Gain / Loss</div>
-        <div class="val scenario-net muted">—</div>
-      </div>
+      <div class="scenario-result-item"><div class="lbl">ROI</div><div class="val scenario-roi muted">—</div></div>
+      <div class="scenario-result-item"><div class="lbl">Net Gain / Loss</div><div class="val scenario-net muted">—</div></div>
     </div>
   `;
   card.querySelector('.scenario-remove').addEventListener('click', () => {
-    if (scenariosContainer.children.length <= 2) {
-      showToast('▲ Need at least 2 scenarios to compare');
-      return;
-    }
+    if (scenariosContainer.children.length <= 2) { showToast('▲ Need at least 2 scenarios to compare'); return; }
     card.remove();
     updateCompare();
   });
@@ -1167,19 +926,14 @@ function createScenario(data = {}) {
 
 function updateCompare() {
   const cards = [...scenariosContainer.children];
-  let bestRoi = -Infinity;
-  let bestCard = null;
-  let validCount = 0;
-
+  let bestRoi = -Infinity, bestCard = null, validCount = 0;
   cards.forEach(card => {
     const cost  = parseNum(card.querySelector('.scenario-cost').value);
     const value = parseNum(card.querySelector('.scenario-value').value);
     const net   = value - cost;
     const roi   = cost > 0 ? (net / cost) * 100 : null;
-
     const roiEl = card.querySelector('.scenario-roi');
     const netEl = card.querySelector('.scenario-net');
-
     if (roi !== null) {
       validCount++;
       roiEl.textContent = fmtPct(roi);
@@ -1192,13 +946,9 @@ function updateCompare() {
       netEl.textContent = '—'; netEl.className = 'val scenario-net muted';
     }
   });
-
   cards.forEach(card => {
-    if (card === bestCard && validCount >= 2 && bestRoi > -Infinity) {
-      card.classList.add('best');
-    } else {
-      card.classList.remove('best');
-    }
+    if (card === bestCard && validCount >= 2 && bestRoi > -Infinity) card.classList.add('best');
+    else card.classList.remove('best');
   });
 }
 
@@ -1213,10 +963,7 @@ function resetScenarios() {
 resetScenarios();
 
 $('#addScenarioBtn').addEventListener('click', () => {
-  if (scenariosContainer.children.length >= 6) {
-    showToast('▲ Maximum 6 scenarios');
-    return;
-  }
+  if (scenariosContainer.children.length >= 6) { showToast('▲ Maximum 6 scenarios'); return; }
   scenariosContainer.appendChild(createScenario({}));
   updateCompare();
 });
@@ -1230,11 +977,7 @@ $('#randomScenariosBtn').addEventListener('click', () => {
     const cost = roundTo(randInt(2000, 40000), 250);
     const multiplier = 0.4 + Math.random() * 1.8;
     const value = roundTo(cost * multiplier, 250);
-    scenariosContainer.appendChild(createScenario({
-      name,
-      cost: cost.toLocaleString('en-US'),
-      value: value.toLocaleString('en-US')
-    }));
+    scenariosContainer.appendChild(createScenario({ name, cost: cost.toLocaleString('en-US'), value: value.toLocaleString('en-US') }));
   });
   updateCompare();
   showToast('⚄ Random scenarios generated');
